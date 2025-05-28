@@ -9,6 +9,7 @@ interface PremiumFeatureProps {
     price: string;
     description: string;
     icon: React.ReactNode;
+    onClose?: () => void;
 }
 
 export default function PremiumFeature({
@@ -16,7 +17,8 @@ export default function PremiumFeature({
     featureName,
     price,
     description,
-    icon
+    icon,
+    onClose
 }: PremiumFeatureProps) {
     const [showPopup, setShowPopup] = useState(false);
 
@@ -25,47 +27,59 @@ export default function PremiumFeature({
         setShowPopup(true);
     };
 
+    const handleClose = () => {
+        setShowPopup(false);
+        if (onClose) {
+            onClose();
+        }
+    };
+
+    // If onClose is provided, show popup immediately (controlled mode)
+    const isPopupVisible = onClose ? true : showPopup;
+
     return (
         <>
-            {/* Premium Feature Wrapper */}
-            <div className="relative">
-                {/* Overlay */}
-                <div
-                    className="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-10 cursor-pointer rounded-lg flex items-center justify-center group hover:bg-black/30 transition-all duration-300"
-                    onClick={handleClick}
-                >
-                    <motion.div
-                        className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-accent/20 group-hover:scale-105 transition-transform duration-300"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+            {/* Premium Feature Wrapper - Only show if not in controlled mode */}
+            {!onClose && (
+                <div className="relative">
+                    {/* Overlay */}
+                    <div
+                        className="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-10 cursor-pointer rounded-lg flex items-center justify-center group hover:bg-black/30 transition-all duration-300"
+                        onClick={handleClick}
                     >
-                        <div className="flex items-center space-x-3">
-                            <div className="text-accent text-2xl">
-                                {icon}
+                        <motion.div
+                            className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-accent/20 group-hover:scale-105 transition-transform duration-300"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <div className="flex items-center space-x-3">
+                                <div className="text-accent text-2xl">
+                                    {icon}
+                                </div>
+                                <div>
+                                    <div className="font-semibold text-coffee-dark">Premium Özellik</div>
+                                    <div className="text-sm text-gray-600">Detaylar için tıklayın</div>
+                                </div>
                             </div>
-                            <div>
-                                <div className="font-semibold text-coffee-dark">Premium Özellik</div>
-                                <div className="text-sm text-gray-600">Detaylar için tıklayın</div>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
+                        </motion.div>
+                    </div>
 
-                {/* Original Content (blurred) */}
-                <div className="filter blur-[2px] pointer-events-none">
-                    {children}
+                    {/* Original Content (blurred) */}
+                    <div className="filter blur-[2px] pointer-events-none">
+                        {children}
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* Premium Feature Popup */}
             <AnimatePresence>
-                {showPopup && (
+                {isPopupVisible && (
                     <motion.div
                         className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setShowPopup(false)}
+                        onClick={handleClose}
                     >
                         <motion.div
                             className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
@@ -152,7 +166,7 @@ export default function PremiumFeature({
                                     className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    onClick={() => setShowPopup(false)}
+                                    onClick={handleClose}
                                 >
                                     Kapat
                                 </motion.button>
@@ -161,7 +175,7 @@ export default function PremiumFeature({
                             {/* Close button */}
                             <button
                                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-                                onClick={() => setShowPopup(false)}
+                                onClick={handleClose}
                             >
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
