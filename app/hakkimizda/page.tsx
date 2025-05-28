@@ -206,7 +206,7 @@ export default function AboutPage() {
                         <div className="text-center">
                             <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden shadow-lg">
                                 <img
-                                    src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
                                     alt="Elif Kaya - Pastry Chef"
                                     className="w-full h-full object-cover"
                                 />
