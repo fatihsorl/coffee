@@ -1,3 +1,7 @@
+'use client';
+
+import { useId } from 'react';
+
 interface WaveTransitionProps {
     fromColor: string;
     toColor: string;
@@ -11,7 +15,7 @@ export default function WaveTransition({
     position = 'bottom',
     height = 'h-16'
 }: WaveTransitionProps) {
-    const waveId = `wave-${Math.random().toString(36).substr(2, 9)}`;
+    const waveId = useId();
 
     return (
         <div className={`relative ${height} overflow-hidden`} style={{ backgroundColor: fromColor }}>

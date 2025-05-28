@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 interface MenuCardProps {
     title: string;
     description: string;
@@ -39,23 +43,45 @@ export default function MenuCard({ title, description, price, category, isPopula
     const productImage = image || getDefaultImage(title, category || '');
 
     return (
-        <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden border border-gray-100 hover:border-accent/30">
+        <motion.div
+            className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden border border-gray-100 hover:border-accent/30"
+            whileHover={{
+                y: -8,
+                scale: 1.02,
+                transition: { duration: 0.3, ease: "easeOut" }
+            }}
+            whileTap={{ scale: 0.98 }}
+        >
             {/* Hover Gradient Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-coffee-light/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-accent/5 to-coffee-light/5 z-10"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+            />
 
             {/* Popular Badge */}
             {isPopular && (
-                <div className="absolute top-3 right-3 bg-gradient-to-r from-accent to-coffee-medium text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg z-20">
+                <motion.div
+                    className="absolute top-3 right-3 bg-gradient-to-r from-accent to-coffee-medium text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg z-20"
+                    whileHover={{
+                        scale: 1.1,
+                        rotate: 5,
+                        transition: { duration: 0.2 }
+                    }}
+                >
                     ⭐ Popüler
-                </div>
+                </motion.div>
             )}
 
             {/* Product Image */}
             <div className="relative h-48 overflow-hidden">
-                <img
+                <motion.img
                     src={productImage}
                     alt={title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
@@ -63,23 +89,42 @@ export default function MenuCard({ title, description, price, category, isPopula
             {/* Content */}
             <div className="relative z-10 p-6">
                 <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-playfair text-xl font-semibold text-coffee-dark group-hover:text-accent transition-colors duration-300">
+                    <motion.h3
+                        className="font-playfair text-xl font-semibold text-coffee-dark group-hover:text-accent transition-colors duration-300"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                    >
                         {title}
-                    </h3>
+                    </motion.h3>
                     <div className="ml-4 flex-shrink-0">
-                        <span className="text-2xl font-bold text-accent">
+                        <motion.span
+                            className="text-2xl font-bold text-accent"
+                            whileHover={{
+                                scale: 1.1,
+                                color: "#8b4513",
+                                transition: { duration: 0.2 }
+                            }}
+                        >
                             {price}
-                        </span>
+                        </motion.span>
                     </div>
                 </div>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <motion.p
+                    className="text-gray-600 text-sm leading-relaxed mb-4"
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                >
                     {description}
-                </p>
+                </motion.p>
 
                 {/* Decorative Line */}
-                <div className="w-12 h-0.5 bg-gradient-to-r from-accent to-coffee-light rounded-full group-hover:w-20 transition-all duration-300"></div>
+                <motion.div
+                    className="h-0.5 bg-gradient-to-r from-accent to-coffee-light rounded-full w-12"
+                    whileHover={{ width: 80 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                />
             </div>
-        </div>
+        </motion.div>
     );
 } 

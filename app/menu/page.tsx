@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MenuCard from '@/components/MenuCard';
 import WaveTransition from '@/components/WaveTransition';
+import PremiumFeature from '@/components/PremiumFeature';
 
 interface MenuItem {
     title: string;
@@ -168,22 +169,29 @@ export default function MenuPage() {
 
 
                     {/* QR Code Section */}
-                    <div className="mt-16 bg-cream rounded-lg p-8 text-center">
-                        <h3 className="font-playfair text-2xl font-bold text-coffee-dark mb-4">
-                            QR Menü
-                        </h3>
-                        <p className="text-gray-600 mb-6">
-                            Telefonunuzla QR kodu okutarak dijital menümüze ulaşabilirsiniz
-                        </p>
-                        <div className="bg-white p-6 rounded-lg inline-block shadow-md">
-                            <img
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=128x128&data=https://kafeismi.com/menu"
-                                alt="QR Menü Kodu"
-                                className="w-32 h-32 rounded-lg"
-                            />
-                            <p className="text-sm text-gray-500 mt-2">QR Kod</p>
+                    <PremiumFeature
+                        featureName="QR Menü Sistemi"
+                        price="₺2.000"
+                        description="Müşterileriniz QR kod okutarak dijital menünüze kolayca ulaşabilsin. Temassız menü deneyimi sunun."
+                        icon={<>📱</>}
+                    >
+                        <div className="mt-16 bg-cream rounded-lg p-8 text-center">
+                            <h3 className="font-playfair text-2xl font-bold text-coffee-dark mb-4">
+                                QR Menü
+                            </h3>
+                            <p className="text-gray-600 mb-6">
+                                Telefonunuzla QR kodu okutarak dijital menümüze ulaşabilirsiniz
+                            </p>
+                            <div className="bg-white p-6 rounded-lg inline-block shadow-md">
+                                <img
+                                    src="https://api.qrserver.com/v1/create-qr-code/?size=128x128&data=https://kafeismi.com/menu"
+                                    alt="QR Menü Kodu"
+                                    className="w-32 h-32 rounded-lg"
+                                />
+                                <p className="text-sm text-gray-500 mt-2">QR Kod</p>
+                            </div>
                         </div>
-                    </div>
+                    </PremiumFeature>
                 </div>
             </section>
 

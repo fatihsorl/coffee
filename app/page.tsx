@@ -5,9 +5,12 @@ import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import MenuCard from '@/components/MenuCard';
 import WaveTransition from '@/components/WaveTransition';
+import PremiumFeature from '@/components/PremiumFeature';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 // Swiper styles
 import 'swiper/css';
@@ -15,6 +18,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export default function Home() {
+  const [showReservationPopup, setShowReservationPopup] = useState(false);
+
   const featuredItems = [
     {
       title: "Özel Karışım Espresso",
@@ -57,6 +62,42 @@ export default function Home() {
     }
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -67,35 +108,54 @@ export default function Home() {
       {/* Öne Çıkan Ürünler */}
       <section className="py-16 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-coffee-dark mb-4">
               Öne Çıkan Lezzetler
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               En sevilen kahvelerimiz ve tatlılarımızdan özenle seçtiklerimiz
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+          >
             {featuredItems.map((item, index) => (
-              <MenuCard
-                key={index}
-                title={item.title}
-                description={item.description}
-                price={item.price}
-                isPopular={item.isPopular}
-              />
+              <motion.div key={index} variants={itemVariants}>
+                <MenuCard
+                  title={item.title}
+                  description={item.description}
+                  price={item.price}
+                  isPopular={item.isPopular}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="text-center">
+          <motion.div
+            className="text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
             <Link
               href="/menu"
               className="bg-accent hover:bg-coffee-medium text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-block"
             >
               Tüm Menüyü Görüntüle
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -106,7 +166,19 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0, x: -50 },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: { duration: 0.8, ease: "easeOut" }
+                }
+              }}
+            >
               <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-coffee-dark mb-6">
                 Bizim Hikayemiz
               </h2>
@@ -124,8 +196,21 @@ export default function Home() {
               >
                 Daha Fazla Bilgi →
               </Link>
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div
+              className="relative"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0, x: 50 },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: { duration: 0.8, ease: "easeOut" }
+                }
+              }}
+            >
               <div className="rounded-lg h-96 overflow-hidden shadow-lg">
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
@@ -151,7 +236,7 @@ export default function Home() {
                   ))}
                 </Swiper>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -160,7 +245,13 @@ export default function Home() {
       <WaveTransition fromColor="#ffffff" toColor="#3c2415" height="h-20" />
 
       {/* İletişim CTA */}
-      <section className="py-16 bg-coffee-dark text-white">
+      <motion.section
+        className="py-16 bg-coffee-dark text-white"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-6">
             Bizi Ziyaret Edin
@@ -170,23 +261,40 @@ export default function Home() {
             Rezervasyon yapmak için bize ulaşın.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/rezervasyon"
+            <motion.button
+              onClick={() => setShowReservationPopup(true)}
               className="bg-accent hover:bg-coffee-medium text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Rezervasyon Yap
-            </Link>
-            <Link
-              href="/iletisim"
-              className="border-2 border-accent hover:bg-accent text-accent hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors"
-            >
-              İletişim Bilgileri
-            </Link>
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/iletisim"
+                className="border-2 border-accent hover:bg-accent text-accent hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-block"
+              >
+                İletişim Bilgileri
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
+
+      {/* Premium Feature Popup for Reservation */}
+      {showReservationPopup && (
+        <PremiumFeature
+          featureName="Online Rezervasyon Sistemi"
+          price="₺2.000"
+          description="Müşterileriniz online olarak kolayca rezervasyon yapabilsin. Otomatik onay sistemi ve WhatsApp entegrasyonu ile."
+          icon={<>📅</>}
+          onClose={() => setShowReservationPopup(false)}
+        >
+          <div></div>
+        </PremiumFeature>
+      )}
     </div>
   );
 }
