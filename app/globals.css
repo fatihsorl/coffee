@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf8f5;
+  --foreground: #2d1810;
+  --coffee-dark: #3c2415;
+  --coffee-medium: #8b4513;
+  --coffee-light: #d2b48c;
+  --cream: #f5f2ed;
+  --accent: #cd853f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --color-coffee-dark: var(--coffee-dark);
+  --color-coffee-medium: var(--coffee-medium);
+  --color-coffee-light: var(--coffee-light);
+  --color-cream: var(--cream);
+  --color-accent: var(--accent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +32,237 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.font-playfair {
+  font-family: var(--font-playfair), serif;
+}
+
+.font-inter {
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Swiper Custom Styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--accent) !important;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: -20px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.7) !important;
+  opacity: 1 !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--accent) !important;
+  transform: scale(1.2);
+}
+
+.swiper-pagination {
+  bottom: 20px !important;
+}
+
+/* Playful Kahve Animasyonları */
+@keyframes bounce-playful {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  40% {
+    transform: translateY(-30px) rotate(10deg);
+  }
+  60% {
+    transform: translateY(-15px) rotate(-5deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes splash {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(var(--random-x, 20px), var(--random-y, -30px))
+      scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(var(--random-x, 40px), var(--random-y, -60px))
+      scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(-5deg) scale(0.9);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counter-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes float-heart {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  33% {
+    transform: translateY(-20px) scale(1.2);
+  }
+  66% {
+    transform: translateY(-10px) scale(0.8);
+  }
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(100px) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+  100% {
+    transform: translateY(-100px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes draw {
+  0% {
+    stroke-dasharray: 0 1000;
+  }
+  100% {
+    stroke-dasharray: 1000 0;
+  }
+}
+
+@keyframes zigzag-move {
+  0% {
+    offset-distance: 0%;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+  }
+  100% {
+    offset-distance: 100%;
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+/* Animasyon Sınıfları */
+.animate-bounce-playful {
+  animation: bounce-playful 2s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-splash {
+  animation: splash 2s ease-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 1.5s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-counter-spin {
+  animation: counter-spin 8s linear infinite;
+}
+
+.animate-float-heart {
+  animation: float-heart 3s ease-in-out infinite;
+}
+
+.animate-bubble {
+  animation: bubble 4s ease-in-out infinite;
+}
+
+.animate-draw {
+  animation: draw 3s ease-in-out infinite;
+  stroke-dasharray: 1000;
+}
+
+.animate-zigzag-move {
+  animation: zigzag-move 4s ease-in-out infinite;
+  offset-path: path("M0,60 L200,20 L400,100 L600,40 L800,80 L1000,30 L1200,70");
 }
